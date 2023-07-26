@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-w%)480p)2k$69eq90+0(tlo%fxfgp)*w3!g*em$w9q8dvh89-$
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://ac39-105-163-156-13.ngrok-free.app', 'http://127.0.0.1:8000', 'http://localhost:8000']
+CSRF_TRUSTED_ORIGINS = ['https://starwave.vercel.app', 'http://127.0.0.1:8000', 'http://localhost:8000','https://starwave-karuoro.vercel.app','https://starwave-git-main-karuoro.vercel.app']
 
 # Application definition
 INSTALLED_APPS = [
