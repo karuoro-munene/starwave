@@ -1,0 +1,84 @@
+{% extends 'base.html'%}
+{%load static%}
+{%load humanize%}
+{%load to_percent%}
+{%block styles%}
+{%endblock styles%}
+{%block content%}
+<!-- Main Content -->
+<div id="content">
+    {%include 'navbar.html'%}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Collateral Details</h1>
+
+        </div>
+        <p>These are the details of the collateral item with ID {{col.collateral_id}}.</p>
+        <hr>
+        <div class="row py-0">
+            <div class="col-sm-6 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Collateral ID:<span
+                                class="text-primary"> {{col.collateral_id}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Collateral Name:<span class="text-primary"> {{col.collateral_name}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Loan Associated:<span
+                                class="text-primary"> <a href="{%url 'loan' loan_id=col.loan.loan_id%}">Details <i
+                                class="fas fa-arrow-right"></i></a> </span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Held On:<span class="text-primary"> {{col.held_on|naturalday}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">To Be Collected On:<span class="text-primary"> {{col.collection_date|naturalday}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Collection Status:<span class="text-primary"> {{col.status}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Confiscated?:<span class="text-primary"> {{col.confiscated}}</span></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+{%endblock content%}
+{%block scripts%}
+{%endblock scripts%}

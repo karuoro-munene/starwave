@@ -1,0 +1,57 @@
+{% extends 'base.html'%}
+{%load static%}
+{% load humanize %}
+{%block styles%}
+{%endblock styles%}
+{%block content%}
+<!-- Main Content -->
+<div id="content">
+    {%include 'navbar.html'%}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">List of All Collected Collaterals</h1>
+        </div>
+        <p>This is a list of all the collected collaterals once held by Starwave Electronics awaiting clients to repay their loans. You can search or filter for a specific item. Click on the name of the collateral to view its details.</p>
+        <hr>
+        <div class="card border-0 mb-4 bg-light px-0 mx-0">
+            <div class="card-body px-0">
+                <div class="table-responsive">
+                    <table class="table table-striped table-borderless" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Collateral Name</th>
+                            <th>Client Name</th>
+                            <th>Phone Number</th>
+                        </tr>
+                        </thead>
+                        <tbody class="mb-4">
+                        {%if collaterals%}
+                        {%for col in collaterals%}
+                        <tr>
+                            <td><a href="{%url 'collateral' id=col.collateral_id%}">{{col.collateral_name}}</a></td>
+                            <td>{{col.loan.client_name}}</td>
+                            <td>{{col.loan.client_phone_no}}</td>
+                        </tr>
+                        {%endfor%}
+                        {%endif%}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+
+<!-- End of Main Content -->
+{%endblock content%}
+{%block scripts%}
+<script>
+
+</script>
+{%endblock scripts%}

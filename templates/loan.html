@@ -1,0 +1,389 @@
+{% extends 'base.html'%}
+{%load static%}
+{%load humanize%}
+{%load to_percent%}
+{%block styles%}
+{%endblock styles%}
+{%block content%}
+<!-- Main Content -->
+<div id="content">
+    {%include 'navbar.html'%}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Loan Details</h1>
+
+        </div>
+        <p>These are the details of the loan with ID {{loan.loan_id}}.</p>
+        <hr>
+        <div class="row py-0">
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Loan ID:<span
+                                class="text-primary"> {{loan.loan_id}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Client:<span class="text-primary"> {{loan.client_name}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">ID Number:<span
+                                class="text-primary"> {{loan.client_id_no}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Phone Number:<span class="text-primary"> {{loan.client_phone_no}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Collateral:<span class="text-primary"> {{loan.collateral_name}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Collateral Details:<span class="text-primary"> <a
+                                class=" border-primary" href="{%url 'collateral' id=loan.collateral_id%}"
+                                style="cursor:pointer!important"> Details <i
+                                class="fas fa-arrow-right"></i></a></span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Issue Date:<span class="text-primary"> {{loan.issue_date|naturalday}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Loan Period:<span class="text-primary"> {{loan.loan_period}} days</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Repayment Date:<span class="text-primary"> {{loan.repayment_date|naturalday}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Loan Amount:<span class="text-primary"> {{loan.loan_amount|floatformat:2}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Interest Rate:<span class="text-primary"> {{loan.interest_rate|to_percent:2}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Repayment Amount:<span class="text-primary"> {{loan.repayment_amount|floatformat:2}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Loan Status:<span
+                                class="text-primary"> {{loan.loan_status}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Overdue Status:<span
+                                class="text-primary"> {{loan.overdue}}</span></span>
+                    </div>
+                </div>
+            </div>
+            {%if loan.loan_status == 'Paid'%}
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Loan Repaid On:<span
+                                class="text-primary"> {{loan.paid_on|naturalday}}</span></span>
+                    </div>
+                </div>
+            </div>
+            {%endif%}
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Issued By:<span
+                                class="text-primary"> {{loan.issued_by}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Default Status:<span
+                                class="text-primary"> {{loan.default_status}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Is Loan Extended:<span
+                                class="text-primary"> {{loan.loan_extended}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Loan Extensions:<span
+                                class="text-primary"> {{loan.loan_extensions}}</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Extended On:<span
+                                class="text-primary"> {% for extension in loan.extended_on %} &nbsp;{{extension|naturalday}},{% endfor %}
+                        </span>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12 py-2">
+                {%if health.remark == 'safe'%}
+                <div class="card border-left-success border-0 h-100 py-1 bg-light">
+                    <div class="card-body">
+                        <div class=" no-gutters align-items-center">
+                            <p class="text-success m-0 mb-0">The loan repayment status is healthy. The client still has
+                                <span class="font-weight-bold">{{health.days}}</span> days to repay the loan</p>
+                        </div>
+                    </div>
+                </div>
+                {%elif health.remark == 'ok'%}
+                <div class="card border-left-warning border-0 h-100 py-1 bg-light">
+                    <div class="card-body">
+                        <div class=" no-gutters align-items-center">
+                            <p class="text-warning m-0 mb-0">The loan repayment status is okay. The client has <span
+                                    class="font-weight-bold">{{health.days}}</span> days to repay the loan.</p>
+                        </div>
+                    </div>
+                </div>
+                {%elif health.remark == 'unsafe'%}
+                <div class="card border-left-danger border-0 h-100 py-1 bg-light">
+                    <div class="card-body">
+                        <div class=" no-gutters align-items-center">
+                            <p class="text-danger m-0 mb-0">The loan repayment status is unhealthy. The client has not
+                                paid the loan in <span class="font-weight-bold">{{health.days}}</span> days. System
+                                recommends that you contact them to check whether they want to default or extend the
+                                loan</p>
+                        </div>
+                    </div>
+                </div>
+                {%endif%}
+
+
+            </div>
+        </div>
+        <hr>
+        <div class="row my-4">
+            {%if not loan.paid and not loan.default_status %}
+            <div class="col-sm-4 mb-3">
+                <a href="#" class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#extend-loan-modal">
+                  <span class="icon text-white-50">
+                        <i class="fas fa-arrow-right"></i>
+                  </span>
+                    <span class="text">Extend Loan</span>
+                </a>
+            </div>
+            {%endif%}
+
+            {%if not loan.paid %}
+            <div class="col-sm-4 mb-3">
+                <a href="#" class="btn btn-success btn-icon-split" data-toggle="modal" data-target="#pay-loan-modal">
+                  <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                  </span>
+                    <span class="text">Mark Loan as Paid</span>
+                </a>
+            </div>
+            {%endif%}
+            {%if loan.overdue and not loan.paid and not loan.default_status %}
+            <div class="col-sm-4 mb-3">
+                <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#default-loan-modal">
+                  <span class="icon text-white-50">
+                        <i class="fas fa-exclamation-triangle"></i>
+                  </span>
+                    <span class="text">Mark Loan as Defaulted</span>
+                </a>
+            </div>
+            {%endif%}
+
+        </div>
+
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!--Mark Loan as Paid Modal-->
+<div class="modal fade" id="pay-loan-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" id="exampleModalLabel">Mark Loan as Paid?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Click on "Continue" if the client has repaid the loan. Their collateral item will
+                automatically be marked as collected.
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <a class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                <a class="btn btn-primary" id="pay-loan">Continue</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Default Loan Modal-->
+<div class="modal fade" id="default-loan-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary">Mark Loan as Defaulted?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Click on "Continue" if the client has defaulted the loan. Their collateral item will
+                automatically be confiscated by Starwave Electronics.
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <a class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                <a class="btn btn-danger" id="default-loan">Continue</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Extend Loan Modal-->
+<div class="modal fade" id="extend-loan-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary">Extend this Loan?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form class="modal-body py-2">
+                <p class="font-weight-bold">Current interest on the loan is: KES {{current_interest|floatformat:2}}</p>
+                <label>Has the client paid the current interest?</label>
+                <select class="form-select form-control mb-3" id="paid-interest-select">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <label>Number of days to extend</label>
+                <input id="new-loan-period" class="form-control mb-4" type="number">
+
+                <div class="d-flex justify-content-between">
+                    <a class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                    <a class="btn btn-danger" id="extend-loan">Continue</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- End of Main Content -->
+{%endblock content%}
+{%block scripts%}
+<script>
+$("#pay-loan").click(function(e){
+    $.ajax({
+        url : "{% url 'pay_loan' %}",
+        type : "POST",
+        data : {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            loan_id:'{{loan.loan_id}}'
+        },
+        dataType: "json",
+        encode: true,
+        }).done(function(response) {
+            $('#pay-loan-modal').modal('hide');
+            window.location.reload(true);
+    });
+    e.preventDefault();
+});
+$("#default-loan").click(function(e){
+    $.ajax({
+        url : "{% url 'default_loan' %}",
+        type : "POST",
+        data : {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            loan_id:'{{loan.loan_id}}'
+        },
+        dataType: "json",
+        encode: true,
+        }).done(function(response) {
+            $('#default-loan-modal').modal('hide');
+            window.location.reload(true);
+    });
+    e.preventDefault();
+});
+$("#extend-loan").click(function(e){
+    var paid_interest = $('#paid-interest-select').find(":selected").val();
+    var days_to_extend = $('#new-loan-period').val();
+    $.ajax({
+        url : "{% url 'extend_loan' %}",
+        type : "POST",
+        data : {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            loan_id:'{{loan.loan_id}}',
+            paid_interest : paid_interest,
+            days_to_extend : days_to_extend
+        },
+        dataType: "json",
+        encode: true,
+        }).done(function(response) {
+            $('#extend-loan-modal').modal('hide');
+            window.location.reload(true);
+    });
+    e.preventDefault();
+});
+
+
+</script>
+{%endblock scripts%}

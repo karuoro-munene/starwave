@@ -1,0 +1,179 @@
+{% extends 'base.html'%}
+{%load static%}
+{%load humanize%}
+{%block styles%}
+{%endblock styles%}
+{%block content%}
+<!-- Main Content -->
+<div id="content">
+    {%include 'navbar.html'%}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Reports</h1>
+        </div>
+        <p>Find all the <a href="{% url 'paid_loans'%}">paid</a> and <a href="{% url 'defaulted_loans'%}">defaulted</a> loans
+            here. You will also find all the <a href="{%url 'collected_collaterals'%}">collected collaterals</a> and <a href="{%url 'confiscated_collaterals'%}">confiscated collaterals</a> here</p>
+        <hr>
+        <div class="card mb-0 border-0">
+            <div class="card-header border-0 py-2 px-0 ">
+                <h6 class="m-0 font-weight-bold text-primary">Paid Loans</h6>
+            </div>
+            <div class="card-body p-0 bg-light">
+                <table class="table table-borderless table-striped mb-0">
+                    <tbody>
+                    {%if paid_loans%}
+                    <thead>
+                    <tr>
+                        <th>Client</th>
+                        <th>Paid On</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+
+                    {%for loan in paid_loans|slice:":5" %}
+                    <tr>
+                        <td><a href="{%url 'loan' loan.loan_id%}">{{loan.client_name}}</a></td>
+                        <td>{{loan.paid_on|naturalday}}</td>
+                        <td>{{loan.loan_amount|floatformat:2 }}</td>
+                    </tr>
+                    {%endfor%}
+                    <tr>
+                        <td colspan="3" class="text-center"><a href="{%url 'paid_loans'%}">All paid loans</a></td>
+                    </tr>
+                    {%else%}
+                    <tr>
+                        <td colspan="3" class="text-center">There are no paid loans</td>
+                    </tr>
+                    {%endif%}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <hr>
+        <div class="card mb-0 border-0">
+            <div class="card-header border-0 py-2 px-0 ">
+                <h6 class="m-0 font-weight-bold text-primary">Defaulted Loans</h6>
+            </div>
+            <div class="card-body p-0 bg-light">
+                <table class="table table-borderless table-striped mb-0">
+                    <tbody>
+                    {%if defaulted_loans%}
+                    <thead>
+                    <tr>
+                        <th>Client</th>
+                        <th>Paid On</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+
+                    {%for loan in defaulted_loans|slice:":5" %}
+                    <tr>
+                        <td><a href="{%url 'loan' loan.loan_id%}">{{loan.client_name}}</a></td>
+                        <td>{{loan.paid_on|naturalday}}</td>
+                        <td>{{loan.loan_amount|floatformat:2 }}</td>
+                    </tr>
+                    {%endfor%}
+                    <tr>
+                        <td colspan="3" class="text-center"><a href="{%url 'defaulted_loans'%}">All defaulted loans</a>
+                        </td>
+                    </tr>
+                    {%else%}
+                    <tr>
+                        <td colspan="3" class="text-center">There are no defaulted loans</td>
+                    </tr>
+                    {%endif%}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <hr>
+        <div class="card mb-0 border-0">
+            <div class="card-header border-0 py-2 px-0 ">
+                <h6 class="m-0 font-weight-bold text-primary">Collected Collaterals</h6>
+            </div>
+            <div class="card-body p-0 bg-light">
+                <table class="table table-borderless table-striped mb-0">
+                    <tbody>
+                    {%if collected_cols%}
+                    <thead>
+                    <tr>
+                        <th>Collateral Name</th>
+                        <th>Collected On</th>
+                        <th>Collateral Amount</th>
+                    </tr>
+                    </thead>
+
+                    {%for col in collected_cols|slice:":5" %}
+                    <tr>
+                        <td><a href="{%url 'collateral' col.collateral_id%}">{{col.collateral_name}}</a></td>
+                        <td>{{col.collected_on|naturalday}}</td>
+                        <td>{{col.loan.loan_amount|floatformat:2 }}</td>
+                    </tr>
+                    {%endfor%}
+                    <tr>
+                        <td colspan="3" class="text-center"><a href="{%url 'collected_collaterals'%}">All collected
+                            collaterals</a></td>
+                    </tr>
+                    {%else%}
+                    <tr>
+                        <td colspan="3" class="text-center">There are no collected collaterals</td>
+                    </tr>
+                    {%endif%}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <hr>
+        <div class="card mb-0 border-0">
+            <div class="card-header border-0 py-2 px-0 ">
+                <h6 class="m-0 font-weight-bold text-primary">Confiscated Collaterals</h6>
+            </div>
+            <div class="card-body p-0 bg-light">
+                <table class="table table-borderless table-striped mb-0">
+                    <tbody>
+                    {%if confiscated_cols%}
+                    <thead>
+                    <tr>
+                        <th>Collateral Name</th>
+                        <th>Collected On</th>
+                        <th>Collateral Amount</th>
+                    </tr>
+                    </thead>
+
+                    {%for col in confiscated_cols|slice:":5" %}
+                    <tr>
+                        <td><a href="{%url 'collateral' col.collateral_id%}">{{col.collateral_name}}</a></td>
+                        <td>{{col.collected_on|naturalday}}</td>
+                        <td>{{col.loan.loan_amount|floatformat:2 }}</td>
+                    </tr>
+                    {%endfor%}
+                    <tr>
+                        <td colspan="3" class="text-center"><a href="{%url 'confiscated_collaterals'%}">All confiscated
+                            collaterals</a></td>
+                    </tr>
+                    {%else%}
+                    <tr>
+                        <td colspan="3" class="text-center">There are no confiscated collaterals</td>
+                    </tr>
+                    {%endif%}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+{%endblock content%}
+{%block scripts%}
+{%endblock scripts%}

@@ -1,0 +1,28 @@
+{% extends 'base.html'%}
+{%load static%}
+{%block styles%}
+{%endblock styles%}
+{%block content%}
+<!-- Main Content -->
+<div id="content">
+    {%include 'navbar.html'%}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <div class="text-center">
+            <div class="error mx-auto my-auto" ></div>
+            <img src="{%static 'img/access_denied.svg'%}" style="height:40vh">
+            <p class="lead text-gray-800 my-5">Forbidden</p>
+            <p class="text-gray-500 ">It looks like you should not be here...</p>
+            <a href="{%url 'dashboard'%}">← Back to Dashboard</a>
+        </div>
+
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+{%endblock content%}
+{%block scripts%}
+{%endblock scripts%}

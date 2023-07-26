@@ -1,0 +1,327 @@
+{% extends 'base.html'%}
+{%load static%}
+{%block styles%}
+{%endblock styles%}
+{%block content%}
+<!-- Main Content -->
+<div id="content">
+    {%include 'navbar.html'%}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">My Profile</h1>
+        </div>
+        <p>A portal showing the current user's profile. You can also perform administrative tasks here</p>
+        <div id="messages"></div>
+        <hr>
+        <!--        user details-->
+        <div class="row py-0">
+            <div class="col-sm-6 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Username:<span
+                                class="text-primary"> {{user.username}}</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">User type:<span
+                                class="text-primary"> {%if user.username == 'stan'%}Administrator{%else%}Employee{%endif%} </span></span>
+                    </div>
+                </div>
+            </div>
+
+            {%if user.username == 'stan'%}
+            <div class="col-sm-6 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Number of Eployees:<span
+                                class="text-primary"> {{employees.count}} </span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 ">
+                <div class="card-body p-1">
+                    <div class="row no-gutters align-items-center">
+                        <span class="h6 font-weight-bold">Employees:<span
+                                class="text-primary"> {{ employees|join:" , " }}</span></span>
+                    </div>
+                </div>
+            </div>
+
+            {%endif%}
+
+        </div>
+
+        <!--        change password-->
+        <div class="row py-0 mt-3">
+            <div class="col-md-12 ">
+                <div class="card-body p-1">
+                    <p class="font-weight-bold h6"> Change Password</p>
+                    <div id="change-pass-validation"></div>
+                    <form class="row no-gutters align-items-center my-2" method="post" id="change-pass-form">
+                        <div class="col-sm-12">
+                            <input class="form-control mb-3" type="text" value=""
+                                   placeholder="Enter new password"
+                                   id="new-password" name="new-password" required>
+                        </div>
+                        <div class="col-sm-12">
+                            <input class="form-control mb-3" type="text" value=""
+                                   placeholder="Confirm new password"
+                                   id="confirm-password" name="confirm-password" required>
+                        </div>
+                        <div class="col-sm-12 text-center my-2">
+                            <input type="submit" value="Change" class="btn btn-primary" id="change-pass">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--        add user if current user == stan-->
+        {%if user.username == 'stan'%}
+        <div class="row py-0 mt-3">
+            <div class="col-md-12 ">
+                <div class="card-body p-1">
+                    <p class="font-weight-bold h6"> Add new employee</p>
+                    <div id="add-user-validation"></div>
+                    <form class="row no-gutters align-items-center py-2" method="post">
+                        <div class="col-md-12">
+                            <input class="form-control mb-3" type="text" value="" autocapitalize="none"
+                                   placeholder="Enter username"
+                                   id="emp-username" name="emp-username">
+                        </div>
+                        <div class="col-md-12">
+                            <input class="form-control mb-3" type="password" value=""
+                                   placeholder="Enter employee password"
+                                   id="emp-password" name="emp-password">
+                        </div>
+                        <div class="col-md-12">
+                            <input class="form-control mb-3" type="password" value=""
+                                   placeholder="Confirm employee password"
+                                   id="emp-confirm" name="emp-confirm">
+                        </div>
+                        <div class="col-md-12 text-center my-2">
+                            <input type="submit" value="Add" class="btn btn-success" id="add-user">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {%endif%}
+        <!--delete user if current user == stan-->
+        {%if user.username == 'stan'%}
+        {%if employees%}
+        <div class="col-md-12 mt-3">
+            <div class="card-body p-1">
+                <p class="font-weight-bold h6"> Delete employee</p>
+                <div id="delete-user-validation"></div>
+                <form class="row no-gutters align-items-center py-2" method="post">
+                    <div class="col-md-12">
+                        <select class="form-select form-control mb-3" aria-label="Default select example"
+                                id="delete-user-select" name="choose-employee">
+                            <option value="default">Select Employee</option>
+                            {%for employee in employees%}
+                            <option value="{{employee.username}}">{{employee.username}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    <div class="col-md-12 text-center my-2">
+                        <input type="submit" value="Delete" class="btn btn-danger" id="delete-user">
+                    </div>
+                </form>
+            </div>
+        </div>
+        {%endif%}
+        {%endif%}
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+<!-- Change password Modal-->
+<div class="modal fade" id="change-pass-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" id="exampleModalLabel">Set new password?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Change" below if you are ready to change your password.</div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" id="change-pass-confirm">Change</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Change password Modal-->
+<div class="modal fade" id="add-user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary">Create new user?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Create" below if you are ready to add a new employee to system.
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" id="new-user-confirm">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete user Modal-->
+<div class="modal fade" id="delete-user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary">Delete this employee?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Delete" below if you are ready to remove this employee from the
+                system.
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger" id="delete-user-confirm">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock content%}
+{%block scripts%}
+<script>
+$("#change-pass").click(function(e){
+    var password = $("#new-password").val();
+    var confirm = $("#confirm-password").val();
+    if (!(password=="") && !(confirm=="")){
+        $('#change-pass-modal').modal('show');
+    } else{
+        let password_validation = $('#change-pass-validation');
+        $("<p class='text-danger'>Blank passwords forbidden!</p>").appendTo(password_validation).fadeOut(5000);
+    }
+    e.preventDefault();
+});
+
+$("#change-pass-confirm").click(function(e){
+    var password = $("#new-password").val();
+    var confirm = $("#confirm-password").val();
+
+    if (password == confirm){
+        $.ajax({
+            url : "{% url 'change_password' %}",
+            type : "POST",
+            data : {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                password:password,
+                username: '{{user.username}}'
+            },
+            dataType: "json",
+            encode: true,
+            }).done(function(response) {
+                $("#new-password").val("");
+                $("#confirm-password").val("");
+                let messages = $('#messages');
+                $("<div class='alert alert-success' role='alert'>Password Changed Successfully!</div>").appendTo(messages).fadeOut(10000);
+                $('#change-pass-modal').modal('hide');
+        });
+    }else{
+        $("#new-password").val("");
+        $("#confirm-password").val("");
+        let password_validation = $('#change-pass-validation');
+        $("<p class='text-danger'>Passwords must match!</p>").appendTo(password_validation).fadeOut(10000);
+        $('#change-pass-modal').modal('hide');
+    }
+});
+$("#add-user").click(function(e){
+    var username = $("#emp-username").val();
+    var password = $("#emp-password").val();
+    var confirm = $("#emp-confirm").val();
+    if (!(username=="") && !(password=="") && !(confirm=="")){
+        $('#add-user-modal').modal('show');
+    } else{
+        let add_user_validation = $('#add-user-validation');
+        $("<p class='text-danger'>All fields required!</p>").appendTo(add_user_validation).fadeOut(5000);
+    }
+    e.preventDefault();
+});
+$("#new-user-confirm").click(function(e){
+    var username = $("#emp-username").val();
+    var password = $("#emp-password").val();
+    var confirm = $("#emp-confirm").val();
+
+    if (password == confirm){
+        $.ajax({
+            url : "{% url 'new_employee' %}",
+            type : "POST",
+            data : {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                password:password,
+                username: username
+            },
+            dataType: "json",
+            encode: true,
+            }).done(function(response) {
+                window.location.reload(true);
+                $('html, body').animate({
+                    scrollTop: $("#page-top").offset().top
+                }, 1000);
+        });
+    }else{
+        $("#emp-password").val("");
+        $("#emp-confirm").val("");
+        let add_user_validation = $('#add-user-validation');
+        $("<p class='text-danger'>Passwords must match!</p>").appendTo(add_user_validation).fadeOut(5000);
+        $('#add-user-modal').modal('hide');
+    }
+});
+$("#delete-user").click(function(e){
+    var username = $("#delete-user-select").children(":selected").val();
+    if (!(username=="default")){
+        $('#delete-user-modal').modal('show');
+    } else{
+        let delete_user_validation = $('#delete-user-validation');
+        $("<p class='text-danger'>Select employee first!</p>").appendTo(delete_user_validation).fadeOut(5000);
+    }
+    e.preventDefault();
+});
+$("#delete-user-confirm").click(function(e){
+    var username = $("#delete-user-select").children(":selected").val();
+    $.ajax({
+        url : "{% url 'delete_employee' %}",
+        type : "POST",
+        data : {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            username: username
+        },
+        dataType: "json",
+        encode: true,
+        }).done(function(response) {
+            window.location.reload(true);
+            $('html, body').animate({
+                scrollTop: $("#page-top").offset().top
+            }, 1000);
+    });
+});
+
+
+
+
+
+</script>
+{%endblock scripts%}
