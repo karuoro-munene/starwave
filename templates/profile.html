@@ -30,12 +30,12 @@
                 <div class="card-body p-1">
                     <div class="row no-gutters align-items-center">
                         <span class="h6 font-weight-bold">User type:<span
-                                class="text-primary"> {%if user.username == 'stan'%}Administrator{%else%}Employee{%endif%} </span></span>
+                                class="text-primary"> {%if user.username == 'admin'%}Administrator{%else%}Employee{%endif%} </span></span>
                     </div>
                 </div>
             </div>
 
-            {%if user.username == 'stan'%}
+            {%if user.username == 'admin'%}
             <div class="col-sm-6 ">
                 <div class="card-body p-1">
                     <div class="row no-gutters align-items-center">
@@ -81,8 +81,8 @@
                 </div>
             </div>
         </div>
-        <!--        add user if current user == stan-->
-        {%if user.username == 'stan'%}
+        <!--        add user if current user == admin-->
+        {%if user.username == 'admin'%}
         <div class="row py-0 mt-3">
             <div class="col-md-12 ">
                 <div class="card-body p-1">
@@ -112,8 +112,8 @@
             </div>
         </div>
         {%endif%}
-        <!--delete user if current user == stan-->
-        {%if user.username == 'stan'%}
+        <!--delete user if current user == admin-->
+        {%if user.username == 'admin'%}
         {%if employees%}
         <div class="col-md-12 mt-3">
             <div class="card-body p-1">
