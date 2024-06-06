@@ -72,11 +72,7 @@ DATABASES = {
         'HOST': 'aws-0-us-west-1.pooler.supabase.com',
         'PORT': 6543,
     }
-'dbname': 'postgres',
- 'host': 'db.ywnipbopqxknfbbpthta.supabase.co',
- 'password': '@#starwave23',
- 'port': '5432',
- 'user': 'postgres'
+
 }
 
 # Password validation
