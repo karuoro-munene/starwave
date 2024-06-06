@@ -35,7 +35,7 @@ def dashboard(request):
 def profile(request, username):
     user = request.user
     if User.objects.get(username=username) == request.user:
-        employees = User.objects.filter(is_active=True).exclude(username='stan')
+        employees = User.objects.filter(is_active=True).exclude(username='admin')
         return render(request, "profile.html", locals())
     else:
         return render(request, "forbidden.html", locals())
