@@ -66,13 +66,17 @@ WSGI_APPLICATION = 'starwave.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get("DB_NAME"),
-        'USER': os.environ.get("DB_USER"),
-        'PASSWORD': os.environ.get("DB_PASSWORD"),
-        'HOST': os.environ.get("DB_HOST"),
-        'PORT': os.environ.get("DB_PORT"),
+        'NAME': 'postgres',
+        'USER': 'postgres.ywnipbopqxknfbbpthta',
+        'PASSWORD': 'droidstarwave',
+        'HOST': 'aws-0-us-west-1.pooler.supabase.com',
+        'PORT': 6543,
     }
-
+'dbname': 'postgres',
+ 'host': 'db.ywnipbopqxknfbbpthta.supabase.co',
+ 'password': '@#starwave23',
+ 'port': '5432',
+ 'user': 'postgres'
 }
 
 # Password validation
